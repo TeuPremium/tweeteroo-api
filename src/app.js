@@ -19,8 +19,7 @@ app.post("/sign-up", (req, res) => {
 })
 
 
-app.get("tweets", (req, res) =>{
-
+app.get("/tweets", (req, res) =>{
     res.send(tweets.slice(tweets.length -10, 0));
 })
 
