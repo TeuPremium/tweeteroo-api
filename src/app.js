@@ -11,7 +11,7 @@ const tweets = [];
 
 app.post("/sign-up", (req, res) => {
     const user = req.body
-    if(!user.username || !user.avatar){
+    if(!user.username || !user.avatar || (typeof(user.avatar) || typeof(user.username)) != 'string'){
         return res.status(400).send("Todos os campos são obrigatórios!");
     }    
     users.push(user)
@@ -29,12 +29,15 @@ app.post("/tweets", (req, res) => {
     const postedTweet = req.body
     const user = users.find(u => u.username === postedTweet.username)
 
-    if(!postedTweet.username || !postedTweet.tweet){
+    if(!postedTweet.username || !postedTweet.tweet || (typeof(postedTweet.tweet) || typeof(postedTweet.username)) != 'string'){
         return res.status(400).send("BAD REQUEST")
     }
+
     if (!user){
         return res.status(401).send("UNAUTHORIZED")
     }
+
+    
 
     tweets.push({... postedTweet, avatar: user.avatar})
     res.status(201).send(postedTweet)
